@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(inputXYZ * speed);
     }
 
-    void OnCollisionStay(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Ground"))
         playerOnGround = true;
