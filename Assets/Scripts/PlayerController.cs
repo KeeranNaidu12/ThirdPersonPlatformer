@@ -15,13 +15,14 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
+        if(collision.gameObject.CompareTag("Ground"))
         playerOnGround = true;
     }
 
     void Update()
     {
          if(Input.GetKey(KeyCode.Space) && playerOnGround){
-            rb.AddForce(new Vector3(0,8,0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(0,4,0), ForceMode.Impulse);
             playerOnGround = false;
         }
     }
