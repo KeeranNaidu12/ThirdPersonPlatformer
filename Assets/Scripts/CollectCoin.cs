@@ -5,7 +5,7 @@ using UnityEngine;
 public class CollectCoin : MonoBehaviour
 {
     public static event Action isCollected;
-    public float score = 0;
+    public static float score = 0;
     [SerializeField] private TextMeshProUGUI scoreText;
     
     // Update is called once per frame
