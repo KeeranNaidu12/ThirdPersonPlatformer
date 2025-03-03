@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float speed = 2f;
+    [SerializeField] float speed = 5;
     [SerializeField] private int maxJump = 2;
     [SerializeField] private Rigidbody rb;
 
@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
 
     private float gravity = -10;
     public bool playerOnGround = true;
-
 
     void Start()
     {
@@ -32,6 +31,10 @@ public class PlayerController : MonoBehaviour
         playerOnGround = true;
         jumpCount = 0;
         }
+        else if(collision.gameObject.CompareTag("Platform")){
+           rb.linearVelocity = new Vector3(rb.linearVelocity.x * speed,0,rb.linearVelocity.z);
+        }
+        
     }
     
 
@@ -43,6 +46,7 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+    //This is done to ensure that player's controls stay consistent with the camera 
     float verticalMotion = Input.GetAxis("Vertical");
     float horizontalMotion = Input.GetAxis("Horizontal");
 
@@ -51,7 +55,8 @@ public class PlayerController : MonoBehaviour
 
        Vector3 inputXYZ = (moveForward + moveSide).normalized;
        inputXYZ.y = 0;
-        rb.AddForce(inputXYZ * speed);
+        rb.linearVelocity = new Vector3(inputXYZ.x * speed,rb.linearVelocity.y,inputXYZ.z * speed);
+        //Jump ability and Double Jump if pressed twice
          if(Input.GetKeyDown(KeyCode.Space) && (jumpCount < maxJump || playerOnGround)){
             rb.linearVelocity = new Vector3(rb.linearVelocity.x,8,rb.linearVelocity.z);
             jumpCount++;
